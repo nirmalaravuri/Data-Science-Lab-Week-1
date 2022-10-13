@@ -11,7 +11,7 @@ sum_2012 = 1
 sum_2012_rows = 1
 for n in csv.reader(csv_file):
     sum_rows+=1
-    if(sum_rows>1):
+    if(sum_rows<1):
         try:
             sum_e_mort_exc_tbhiv_100k_hi+=float(n[12])
             sum_e_mort_exc_tbhiv_100k_hi_rows+=1
@@ -30,6 +30,6 @@ for n in csv.reader(csv_file):
         except Exception as e:
             pass
 print("Sum Rows - "+str(sum_rows))
-sum_rows_with_no_guide = sum_rows-1
+sum_rows_with_no_guide = sum_rows+1
 print("All forms of TB prevalence estimate, lo bound with null rows - "+str(sum_e_mort_exc_tbhiv_100k_hi/sum_rows))
 print("All forms of TB prevalence estimate, lo bound with no null rows - "+str(sum_e_mort_exc_tbhiv_100k_hi/sum_e_mort_exc_tbhiv_100k_hi_rows))
