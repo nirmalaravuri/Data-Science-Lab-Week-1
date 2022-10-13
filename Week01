@@ -1,29 +1,35 @@
 import csv
+import sys
 
-csvfile = open('TB_burden_countries_2014-09-29.csv')
-
+csv_file = open("TB_burden_countries_2014-09-29.csv")	
 sum_rows = 0
-sum_mort_exc_tbhiv_100k_lo_rows = 0
-sum_mort_exc_tbhiv_100k_lo = 0
-sum_1992_rows = 0
-sum_1992 = 0
-sum_2012 = 0
+sum_e_mort_exc_tbhiv_100k_lo_rows = 0
+sum_e_mort_exc_tbhiv_100k_lo = 1
+sum_1994_rows = 0
+sum_1994 = 1
+sum_2012 = 1
 sum_2012_rows = 0
-for n in csv.reader(csvfile):
+for n in csv.reader(csv_file):
     sum_rows+=1
     if(sum_rows>1):
-             sum_mort_exc_tbhiv_100k_lo+=float(n[14])
-             sum_mort_exc_tbhiv_100k_lo_rows+=1
-    if(str(n[7])=='1992'):
-        sum_1992+=float(n[14])
-        sum_1992_rows+=1
-    if(str(n[7])=='2012'):
-        sum_2012+=float(n[14])
-        sum_2012_rows+=1
-
-print('Sum Rows – '+str(sum_rows))
-sum_rows_no_guide = sum_rows-1
-print('TB Prevalence Rating, lo bound with null rows – '+str(sum_mort_exc_tbhiv_100k_lo/sum_rows))
-print('TB Prevalence Rating, lo bound with no null rows – '+str(sum_mort_exc_tbhiv_100k_lo/sum_mort_exc_tbhiv_100k_lo_rows))
-print('TB Prevalence Rating, lo bound for 1992 – '+str(sum_1992/sum_1992_rows))
-print('TB Prevalence Rating, lo bound for 2012 – '+str(sum_2012/sum_2012_rows))
+        try:
+            sum_e_mort_exc_tbhiv_100k_lo+=float(n[14])
+            sum_e_mort_exc_tbhiv_100k_lo_rows+=1
+        except Exception as e:
+            pass
+    if(str(n[7])=="1994"):
+        try:
+            sum_1994+=float(n[14])
+            sum_1994_rows+=1
+        except Exception as e:
+            pass
+    if(str(n[7])=="2012"):
+        try:
+            sum_2012+=float(n[14])
+            sum_2012_rows+=1
+        except Exception as e:
+            pass
+print("Sum Rows - "+str(sum_rows))
+sum_rows_with_no_guide = sum_rows-1
+print("All forms of TB prevalence estimate, lo bound with null rows - "+str(sum_e_mort_exc_tbhiv_100k_lo/sum_rows))
+print("All forms of TB prevalence estimate, lo bound with no null rows - "+str(sum_e_mort_exc_tbhiv_100k_lo/sum_e_mort_exc_tbhiv_100k_lo_rows))
